@@ -51,6 +51,30 @@ EOT
         grep "^.$i " NM.INP > STA$i.INP
         ../peakfq sta$i.psf
 done
+
+# extract EMA estimates with generalized skew
+echo "station,probability,mean"
+for i in *.OUT; do
+        awk '
+        /^ *Station -/{
+                station=$3
+        }
+        /^PROBABILITY/{
+                start=1
+                next
+        }
+        /^$/{
+                if(start == 1)
+                        start = 2
+                else if(start == 2)
+                        start = 0
+                next
+        }
+        start == 2{
+                if($1==0.002 || $1 ==0.01 || $1 == 0.02 || $1 == 0.04 || $1 == 0.1 || $1 == 0.2 || $1 == 0.5)
+                        printf "%s,%s,%s\n", station, $1, $2
+        }' $i
+done
 ```
 
 ## Disclaimer
