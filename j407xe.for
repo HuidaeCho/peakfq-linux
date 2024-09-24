@@ -2600,7 +2600,7 @@ C     set Z,N,H card flags
         AUX(I) = 0.
  6    CONTINUE
       AUX(1) = -1.01E29
-C      AUX(1) = -999.0
+!      AUX(1) = -999.0
       XHSTPK = 1.0E29
       XSYSPK = 0.0
       AGENCY = '     '	
