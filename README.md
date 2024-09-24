@@ -57,10 +57,10 @@ done
 for i in *.OUT; do
 	awk '
 	/^ *Station -/{
-		station=$3
+		statio n =$3
 	}
 	/^PROBABILITY/{
-		start=1
+		start = 1
 		next
 	}
 	/^$/{
