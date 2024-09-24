@@ -47,7 +47,7 @@ STATION $i
   ANALYZE EMA
 EOT
         grep "^.$i " NM.INP > STA$i.INP
-        peakfq sta$i.psf
+        ../peakfq sta$i.psf
 done
 ```
 
