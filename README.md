@@ -40,7 +40,7 @@ cp ../pkfqms.wdm .
 wget -O NM.INP "https://nwis.waterdata.usgs.gov/nwis/peak?state_cd=nm&group_key=NONE&sitefile_output_format=html_table&column_name=agency_cd&column_name=site_no&column_name=station_nm&set_logscale_y=1&date_format=YYYY-MM-DD&rdb_compression=file&format=hn2&hn2_compression=file&list_of_search_criteria=state_cd"
 
 for i in `grep ^Z NM.INP  | sed 's/ .*//;s/^Z//'`; do
-	cat<<EOT > sta$i.psf
+	cat << EOT > sta$i.psf
 I ASCI STA$i.INP
 O FILE STA$i.OUT
 O DEBUG YES
