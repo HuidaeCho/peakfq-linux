@@ -22,6 +22,8 @@ Or you can directly download the source code and other files, and compile it:
 wget -O compile_peakfq.sh https://clawiki.isnew.info/_export/code/howtos/how_to_compile_peakfq_on_linux?codeblock=0
 chmod a+x compile_peakfq.sh
 ./compile_peakfq.sh
+
+# copy peakfq to your PATH
 ```
 
 ## How to use
