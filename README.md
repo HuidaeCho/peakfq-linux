@@ -53,7 +53,7 @@ EOT
 done
 
 # extract EMA estimates with generalized skew
-echo "station,probability,mean"
+(echo "station,probability,mean"
 for i in *.OUT; do
         awk '
         /^ *Station -/{
@@ -74,7 +74,7 @@ for i in *.OUT; do
                 if($1==0.002 || $1 ==0.01 || $1 == 0.02 || $1 == 0.04 || $1 == 0.1 || $1 == 0.2 || $1 == 0.5)
                         printf "%s,%s,%s\n", station, $1, $2
         }' $i
-done
+done) > nm_ema.csv
 ```
 
 ## Disclaimer
