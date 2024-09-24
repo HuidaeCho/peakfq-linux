@@ -40,7 +40,7 @@ cp ../pkfqms.wdm .
 wget -O NM.INP "https://nwis.waterdata.usgs.gov/nwis/peak?state_cd=nm&group_key=NONE&sitefile_output_format=html_table&column_name=agency_cd&column_name=site_no&column_name=station_nm&set_logscale_y=1&date_format=YYYY-MM-DD&rdb_compression=file&format=hn2&hn2_compression=file&list_of_search_criteria=state_cd"
 
 for i in `grep ^Z NM.INP  | sed 's/ .*//;s/^Z//'`; do
-        cat<<EOT > sta$i.psf
+	cat<<EOT > sta$i.psf
 I ASCI STA$i.INP
 O FILE STA$i.OUT
 O DEBUG YES
@@ -48,32 +48,33 @@ O ADDITIONAL BOTH
 STATION $i
   ANALYZE EMA
 EOT
-        grep "^.$i " NM.INP > STA$i.INP
-        ../peakfq sta$i.psf
+	grep "^.$i " NM.INP > STA$i.INP
+	../peakfq sta$i.psf
 done
 
 # extract EMA estimates with generalized skew
 (echo "station,probability,mean"
 for i in *.OUT; do
-        awk '
-        /^ *Station -/{
-                station=$3
-        }
-        /^PROBABILITY/{
-                start=1
-                next
-        }
-        /^$/{
-                if(start == 1)
-                        start = 2
-                else if(start == 2)
-                        start = 0
-                next
-        }
-        start == 2{
-                if($1==0.002 || $1 ==0.01 || $1 == 0.02 || $1 == 0.04 || $1 == 0.1 || $1 == 0.2 || $1 == 0.5)
-                        printf "%s,%s,%s\n", station, $1, $2
-        }' $i
+	awk '
+	/^ *Station -/{
+		station=$3
+	}
+	/^PROBABILITY/{
+		start=1
+		next
+	}
+	/^$/{
+		if(start == 1)
+			start = 2
+		else if(start == 2)
+			start = 0
+		next
+	}
+	start == 2{
+		prob = substr($0, 1, 9) + 0
+		if(prob == 0.002 || prob == 0.01 || prob == 0.02 || prob == 0.04 || prob == 0.1 || prob == 0.2 || prob == 0.5)
+			printf "%s,%f,%f\n", station, prob, substr($0, 10, 10)
+	}' $i
 done) > nm_ema.csv
 ```
 
