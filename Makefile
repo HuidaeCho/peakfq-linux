@@ -1,12 +1,12 @@
 FC=ifx
 LDFLAGS=-nofor-main
 
-all: peakfq
+all: peakfq-bin peakfq
 
 clean:
-	$(RM) *.o EMAUtil/*.o *.mod peakfq
+	$(RM) *.o EMAUtil/*.o *.mod peakfq-bin peakfq
 
-peakfq: \
+peakfq-bin: \
 	main.o \
 	EMAUtil/dcdflib1.o \
 	EMAUtil/imslfake.o \
@@ -65,3 +65,7 @@ j407wc.o: emathresh.o
 
 %.o: %.for
 	$(FC) $(FFLAGS) -c -o $@ $<
+
+peakfq: peakfq.in
+	sed "s#@PEAKFQ_PATH@#`pwd`#" $^ > $@
+	chmod a+x $@

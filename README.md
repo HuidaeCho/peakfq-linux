@@ -26,16 +26,11 @@ chmod a+x compile_peakfq.sh
 # copy peakfq to your PATH
 ```
 
-## How to use
-
-Copy `pkfqms.wdm` to your input file directory and run `peakfq` from there.
-
 ## How to test
 
 ```bash
 mkdir test
 cd test
-cp ../pkfqms.wdm .
 
 wget -O NM.INP "https://nwis.waterdata.usgs.gov/nwis/peak?state_cd=nm&group_key=NONE&sitefile_output_format=html_table&column_name=agency_cd&column_name=site_no&column_name=station_nm&set_logscale_y=1&date_format=YYYY-MM-DD&rdb_compression=file&format=hn2&hn2_compression=file&list_of_search_criteria=state_cd"
 

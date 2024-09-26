@@ -1,0 +1,18 @@
+#!/bin/sh
+PEAKFQ_PATH=@PEAKFQ_PATH@
+
+cleanup(){
+	[ "$(pwd)" != "$PEAKFQ_PATH" ] && [ -f pkfqms.wdm ] && rm -f pkfqms.wdm
+}
+trap cleanup EXIT
+
+if [ $# -lt 1 ]; then
+	echo "Usage: peakfq specfile"
+	exit
+elif [ ! -f "$1" ]; then
+	echo "$1: No such file"
+	exit 1
+fi
+
+cp -a "$PEAKFQ_PATH/pkfqms.wdm" .
+"$PEAKFQ_PATH/peakfq-bin" "$1"
